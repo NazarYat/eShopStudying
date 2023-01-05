@@ -1,7 +1,7 @@
 using eShopStudying.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace eShopStudying.Data;
+namespace eShopStudying.DataAccess;
 
 public class SQLDBContext : DbContext
 {

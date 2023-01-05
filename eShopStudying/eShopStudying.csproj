@@ -16,4 +16,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eshopstudying.models\eShopStudying.Models.csproj" />
+    <ProjectReference Include="..\eshopstudying.dataaccess\eShopStudying.DataAccess.csproj" />
+    <ProjectReference Include="..\eshopstudying.utility\eShopStudying.Utility.csproj" />
+  </ItemGroup>
+
 </Project>

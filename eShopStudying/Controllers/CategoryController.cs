@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using eShopStudying.Data;
+using eShopStudying.DataAccess;
 using eShopStudying.Models;
 
 namespace eShopStudying.Controllers;
