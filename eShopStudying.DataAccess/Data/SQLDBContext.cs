@@ -10,5 +10,5 @@ public class SQLDBContext : DbContext
         
     }
     public DbSet<Category> Categories { get; set; }
-    public DbSet<CoverType> CoverTypesotnet { get; set; }
+    public DbSet<CoverType> CoverType { get; set; }
 }

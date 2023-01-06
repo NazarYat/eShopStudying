@@ -5,6 +5,7 @@ namespace eShopStudying.DataAccess.Repository
     public class UnitOfWork : IUnitOfWork
     {
         public ICategoryRepository Category { get; private set; }
+        public ICoverTypeRepository CoverType { get; private set; }
 
         private readonly SQLDBContext _db;
 
@@ -12,6 +13,7 @@ namespace eShopStudying.DataAccess.Repository
         {
             _db = db;
             Category = new CategoryRepository(_db);
+            CoverType = new CoverTypeRepository(_db);
         }
         public void Save()
         {
