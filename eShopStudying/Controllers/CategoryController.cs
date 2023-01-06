@@ -7,15 +7,15 @@ namespace eShopStudying.Controllers;
 
 public class CategoryController : Controller
 {
-    private readonly ICategoryRepository _dbContext;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CategoryController(ICategoryRepository dbContext)
+    public CategoryController(IUnitOfWork unitOfWork)
     {
-        _dbContext = dbContext;
+        _unitOfWork = unitOfWork;
     }
     public IActionResult Index()
     {
-        IEnumerable<Category> categoriesList = _dbContext.GetAll();
+        IEnumerable<Category> categoriesList = _unitOfWork.Category.GetAll();
         return View(categoriesList);
     }
     [HttpGet]
@@ -29,8 +29,8 @@ public class CategoryController : Controller
     {
         if (ModelState.IsValid)
         {
-            _dbContext.Add(obj);
-            _dbContext.Save();
+            _unitOfWork.Category.Add(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Category element was successfuly created";
             return RedirectToAction("Index");
         }
@@ -45,7 +45,7 @@ public class CategoryController : Controller
         {
             return NotFound();
         }
-        var obj = _dbContext.GetFirstOrDefault(u => u.Id == id);
+        var obj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
         if (obj == null) 
         {
@@ -59,8 +59,8 @@ public class CategoryController : Controller
     {
         if (ModelState.IsValid)
         {
-            _dbContext.Update(obj);
-            _dbContext.Save();
+            _unitOfWork.Category.Update(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Category element was successfuly Updated";
             return RedirectToAction("Index");
         }
@@ -74,7 +74,7 @@ public class CategoryController : Controller
         {
             return NotFound();
         }
-        var obj = _dbContext.GetFirstOrDefault(u => u.Id == id);
+        var obj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
         if (obj == null) 
         {
@@ -85,15 +85,15 @@ public class CategoryController : Controller
     [HttpPost]
     public IActionResult DeletePost(int? id)
     {
-        var obj = _dbContext.GetFirstOrDefault(u => u.Id == id);
+        var obj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
         if (obj == null) 
         {
             TempData["error"] = "Cannot delete category element";
             return NotFound();
         }
 
-        _dbContext.Remove(obj);
-        _dbContext.Save();
+        _unitOfWork.Category.Remove(obj);
+        _unitOfWork.Save();
         TempData["success"] = "Category element was deleted successfuly";
         return RedirectToAction("Index");
     }
