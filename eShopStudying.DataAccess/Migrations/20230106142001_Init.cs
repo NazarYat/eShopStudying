@@ -27,7 +27,7 @@ namespace eShopStudying.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CoverTypesotnet",
+                name: "CoverTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -36,7 +36,7 @@ namespace eShopStudying.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CoverTypesotnet", x => x.Id);
+                    table.PrimaryKey("PK_CoverTypes", x => x.Id);
                 });
         }
 
@@ -47,7 +47,7 @@ namespace eShopStudying.DataAccess.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "CoverTypesotnet");
+                name: "CoverTypes");
         }
     }
 }

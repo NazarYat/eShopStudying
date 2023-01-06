@@ -60,7 +60,7 @@ namespace eShopStudying.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CoverTypesotnet");
+                    b.ToTable("CoverTypes");
                 });
 #pragma warning restore 612, 618
         }
