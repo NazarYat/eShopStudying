@@ -13,7 +13,7 @@ namespace eShopStudying.DataAccess.Repository
 
         public void Update(CoverType obj)
         {
-            _db.CoverType.Update(obj);
+            _db.CoverTypes.Update(obj);
         }
     }
 }
