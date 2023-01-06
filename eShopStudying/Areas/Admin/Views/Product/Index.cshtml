@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Product list
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="CoverType" asp-action="Create" class="btn btn-outline-primary">
+                Create new Product
+            </a>
+            <p>
+            </p>
+        </div>
+    </div>
+
+<table class="table table-bordered" style="width: 100%;">
+    <thead>
+        <tr class="table-active">
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>ISBN</th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach (var obj in Model)
+        {
+            <tr>
+                <td style="width: 50%">
+                    @obj.Name
+                </td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="CoverType" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary btn-sm">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        } *@
+    </tbody>
+</table>
