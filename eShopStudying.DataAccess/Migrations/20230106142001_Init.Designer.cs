@@ -9,11 +9,11 @@ using eShopStudying.DataAccess;
 
 #nullable disable
 
-namespace eShopStudying.Migrations
+namespace eShopStudying.DataAccess.Migrations
 {
     [DbContext(typeof(SQLDBContext))]
-    [Migration("20230105194241_AddDateTime")]
-    partial class AddDateTime
+    [Migration("20230106142001_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,24 @@ namespace eShopStudying.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("eShopStudying.Models.CoverType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CoverTypesotnet");
                 });
 #pragma warning restore 612, 618
         }

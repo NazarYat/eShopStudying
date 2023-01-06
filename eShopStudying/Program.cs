@@ -12,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("Default")
+    builder.Configuration.GetConnectionString("Default"),
+    x => x.MigrationsAssembly("eShopStudying.DataAccess")
 ));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
