@@ -1,4 +1,6 @@
 using eShopStudying.DataAccess;
+using eShopStudying.DataAccess.Repository;
+using eShopStudying.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +14,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("Default")
 ));
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 

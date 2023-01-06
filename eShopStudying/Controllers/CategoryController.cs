@@ -1,20 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using eShopStudying.DataAccess;
 using eShopStudying.Models;
+using eShopStudying.DataAccess.Repository.IRepository;
 
 namespace eShopStudying.Controllers;
 
 public class CategoryController : Controller
 {
-    private readonly SQLDBContext _dbContext;
+    private readonly ICategoryRepository _dbContext;
 
-    public CategoryController(SQLDBContext dbContext)
+    public CategoryController(ICategoryRepository dbContext)
     {
         _dbContext = dbContext;
     }
     public IActionResult Index()
     {
-        IEnumerable<Category> categoriesList = _dbContext.Categories;
+        IEnumerable<Category> categoriesList = _dbContext.GetAll();
         return View(categoriesList);
     }
     [HttpGet]
@@ -28,8 +29,8 @@ public class CategoryController : Controller
     {
         if (ModelState.IsValid)
         {
-            _dbContext.Categories.Add(obj);
-            _dbContext.SaveChanges();
+            _dbContext.Add(obj);
+            _dbContext.Save();
             TempData["success"] = "Category element was successfuly created";
             return RedirectToAction("Index");
         }
@@ -44,7 +45,7 @@ public class CategoryController : Controller
         {
             return NotFound();
         }
-        var obj = _dbContext.Categories.Find(id);
+        var obj = _dbContext.GetFirstOrDefault(u => u.Id == id);
 
         if (obj == null) 
         {
@@ -58,8 +59,8 @@ public class CategoryController : Controller
     {
         if (ModelState.IsValid)
         {
-            _dbContext.Categories.Update(obj);
-            _dbContext.SaveChanges();
+            _dbContext.Update(obj);
+            _dbContext.Save();
             TempData["success"] = "Category element was successfuly Updated";
             return RedirectToAction("Index");
         }
@@ -73,7 +74,7 @@ public class CategoryController : Controller
         {
             return NotFound();
         }
-        var obj = _dbContext.Categories.Find(id);
+        var obj = _dbContext.GetFirstOrDefault(u => u.Id == id);
 
         if (obj == null) 
         {
@@ -84,15 +85,15 @@ public class CategoryController : Controller
     [HttpPost]
     public IActionResult DeletePost(int? id)
     {
-        var obj = _dbContext.Categories.Find(id);
+        var obj = _dbContext.GetFirstOrDefault(u => u.Id == id);
         if (obj == null) 
         {
             TempData["error"] = "Cannot delete category element";
             return NotFound();
         }
 
-        _dbContext.Categories.Remove(obj);
-        _dbContext.SaveChanges();
+        _dbContext.Remove(obj);
+        _dbContext.Save();
         TempData["success"] = "Category element was deleted successfuly";
         return RedirectToAction("Index");
     }
