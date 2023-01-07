@@ -11,10 +11,12 @@ namespace eShopStudying.Controllers;
 public class ProductController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
-    public ProductController(IUnitOfWork unitOfWork)
+    public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
     {
         _unitOfWork = unitOfWork;
+        _hostEnvironment = hostEnvironment;
     }
     public IActionResult Index()
     {
@@ -51,16 +53,29 @@ public class ProductController : Controller
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Upsert(ProductVM obj, IFormFile file)
+    public IActionResult Upsert(ProductVM obj, IFormFile? file)
     {
         if (ModelState.IsValid)
         {
-            // _unitOfWork.Product.Update(obj);
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            if (file != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images/products");
+                var extension = Path.GetExtension(file.FileName);
+
+                using (var fileStream = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                obj.Product.ImageUrl = @"images/products/" + fileName + extension;
+            }
+            _unitOfWork.Product.Add(obj.Product);
             _unitOfWork.Save();
-            TempData["success"] = "Product element was successfuly Updated";
+            TempData["success"] = "Product was successfuly added";
             return RedirectToAction("Index");
         }
-        TempData["error"] = "Cannot update category element";
+        TempData["error"] = "Cannot create new product";
         return View(obj);
     }
     [HttpGet]

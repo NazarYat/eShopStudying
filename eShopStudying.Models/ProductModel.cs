@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace eShopStudying.Models
 {
@@ -26,11 +27,14 @@ namespace eShopStudying.Models
         [Range(0, 10000)]
         public double Price100 { get; set; }
         [Required]
+        [ValidateNever]
         public string ImageUrl { get; set; }
 
         public int CategoryId { get; set; }
+        [ValidateNever]
         public Category Category { get; set; }
         public int CoverTypeId { get; set; }
+        [ValidateNever]
         public CoverType CoverType { get; set; }
     }
 }
