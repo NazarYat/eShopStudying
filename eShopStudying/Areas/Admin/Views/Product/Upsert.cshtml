@@ -3,7 +3,7 @@
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
     <div class="border p-3 mt-4 row">
         <div class="row pb-2">
-            <h2 class="text-primary">Update Product</h2>
+            <h2 class="text-primary">@(@Model.Product.Id == 0 ? "Create" : "Update") Product</h2>
             <hr/>
         </div>
         <div class="mb-3">
@@ -62,13 +62,17 @@
         </div>
         <div class="mb-3 col-6">
             <label asp-for="Product.ImageUrl"></label>
-            <input type="file" class="form-control"/>
+            <input type="file" id="uploadBox" class="form-control"/>
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-outline-primary">
-                Save
-            </button>
-            <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@Model.Product.Id">Delete</a>
+            @if (@Model.Product.Id != 0)
+            {
+                <button type="submit" class="btn btn-outline-primary">Save</button>
+                <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@Model.Product.Id">Delete</a>
+            } else
+            {
+                <button type="submit" onclick="return ValidateInput()" class="btn btn-outline-primary">Create</button>
+            }
             <a class="btn btn-primary" asp-controller="Product" asp-action="Index">Back to list</a>
         </div>
     </div>
@@ -79,4 +83,20 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
+    <script>
+        function ValidateInput()
+        {
+            if (document.getElementById("uploadBox").value == "")
+            {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please upload an image!',
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
+
 }
