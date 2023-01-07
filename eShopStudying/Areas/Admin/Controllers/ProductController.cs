@@ -99,38 +99,28 @@ public class ProductController : Controller
         TempData["error"] = "Cannot create new product";
         return View(obj);
     }
-    [HttpGet]
+
+    #region API CALLS
+    [HttpDelete]
     public IActionResult Delete(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
         var obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+        if (obj == null) 
+        {
+            return Json(new { success = false, message = "Cannot delete category element"});
+        }
 
-        if (obj == null) 
+        var oldImagePath = Path.Combine(_hostEnvironment.ContentRootPath, obj.ImageUrl.TrimStart('\\'));
+        if (System.IO.File.Exists(oldImagePath))
         {
-            return NotFound();
-        }
-        return View(obj);
-    }
-    [HttpPost]
-    public IActionResult DeletePost(int? id)
-    {
-        var obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
-        if (obj == null) 
-        {
-            TempData["error"] = "Cannot delete category element";
-            return NotFound();
+            System.IO.File.Delete(oldImagePath);
         }
 
         _unitOfWork.Product.Remove(obj);
         _unitOfWork.Save();
-        TempData["success"] = "Product element was deleted successfuly";
-        return RedirectToAction("Index");
+        return Json(new { success = true, message = "Product was deleted successfuly"});
     }
 
-    #region API CALLS
     [HttpGet]
     public IActionResult GetAll()
     {

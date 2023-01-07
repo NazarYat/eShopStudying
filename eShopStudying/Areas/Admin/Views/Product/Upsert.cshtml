@@ -73,7 +73,6 @@
             @if (@Model.Product.Id != 0)
             {
                 <button type="submit" class="btn btn-outline-primary">Save</button>
-                <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@Model.Product.Id">Delete</a>
             } else
             {
                 <button type="submit" onclick="return ValidateInput()" class="btn btn-outline-primary">Create</button>
