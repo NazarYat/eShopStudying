@@ -1,7 +1,12 @@
 @model eShopStudying.Models.ViewModels.ProductVM
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
-    <div class="border p-3 mt-4 row">
+    <input asp-for="Product.Id" hidden />
+    <input asp-for="Product.ImageUrl" hidden />
+
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
         <div class="row pb-2">
             <h2 class="text-primary">@(@Model.Product.Id == 0 ? "Create" : "Update") Product</h2>
             <hr/>
@@ -74,6 +79,11 @@
                 <button type="submit" onclick="return ValidateInput()" class="btn btn-outline-primary">Create</button>
             }
             <a class="btn btn-primary" asp-controller="Product" asp-action="Index">Back to list</a>
+        </div>
+    </div>
+        </div>
+        <div class="col-2 pt-4">
+            <img src="@Model.Product.ImageUrl" width="100%" style="border-radius: 5px;" />
         </div>
     </div>
 </form>
