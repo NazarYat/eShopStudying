@@ -14,7 +14,18 @@ function loadDataTable() {
             { "data": "isbn", "width": "15%"},
             { "data": "author", "width": "15%"},
             { "data": "category.name", "width": "15%"},
-            { "data": "price", "width": "15%"}
+            { "data": "price", "width": "15%"},
+            { 
+                "data": "id",
+                "render": function (data) {
+                    return `
+                    <div class="w-100 btn-group" role="group">
+                        <a href="/Admin/Product/Upsert/?id=${data}" class="btn btn-primary btn-sm">Edit</a>
+                    </div>
+                    `;
+                },
+                "width": "15%"
+            }
         ]
     });
 }
