@@ -108,4 +108,15 @@ public class ProductController : Controller
         TempData["success"] = "Product element was deleted successfuly";
         return RedirectToAction("Index");
     }
+
+    #region API CALLS
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var productList = _unitOfWork.Product.GetAll();
+        return Json(new {
+            data = productList
+        });
+    }
+    #endregion
 }
