@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using eShopStudying.DataAccess;
 using eShopStudying.Models;
 using eShopStudying.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using eShopStudying.Models.ViewModels;
 
 namespace eShopStudying.Controllers;
 
@@ -19,48 +21,41 @@ public class ProductController : Controller
         IEnumerable<Product> categoriesList = _unitOfWork.Product.GetAll();
         return View(categoriesList);
     }
-    [HttpGet]
-    public IActionResult Create()
-    {
-        return View();
-    }
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Create(Product obj)
-    {
-        if (ModelState.IsValid)
-        {
-            _unitOfWork.Product.Add(obj);
-            _unitOfWork.Save();
-            TempData["success"] = "Product element was successfuly created";
-            return RedirectToAction("Index");
-        }
-        TempData["error"] = "Cannot create category element";
-        return View(obj);
-    }
 
     [HttpGet]
-    public IActionResult Edit(int? id)
+    public IActionResult Upsert(int? id)
     {
+        ProductVM productVM = new() 
+        {
+            Product = new(),
+            CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            }),
+            CoverTypeList = _unitOfWork.CoverType.GetAll().Select(i => new SelectListItem {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            })
+        };
+
         if (id == null || id == 0)
         {
-            return NotFound();
+            //create product
+            return View(productVM);
         }
-        var obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
-
-        if (obj == null) 
+        else 
         {
-            return NotFound();
+            // update product
         }
-        return View(obj);
+        return View(productVM);
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Product obj)
+    public IActionResult Upsert(ProductVM obj, IFormFile file)
     {
         if (ModelState.IsValid)
         {
-            _unitOfWork.Product.Update(obj);
+            // _unitOfWork.Product.Update(obj);
             _unitOfWork.Save();
             TempData["success"] = "Product element was successfuly Updated";
             return RedirectToAction("Index");
