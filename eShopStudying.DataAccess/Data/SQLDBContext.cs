@@ -1,9 +1,10 @@
 using eShopStudying.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace eShopStudying.DataAccess;
 
-public class SQLDBContext : DbContext
+public class SQLDBContext : IdentityDbContext
 {
     public SQLDBContext(DbContextOptions<SQLDBContext> options) : base(options)
     {
