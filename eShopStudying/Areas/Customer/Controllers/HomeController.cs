@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using eShopStudying.Models;
 using Microsoft.Extensions.Logging;
 using eShopStudying.DataAccess.Repository.IRepository;
+using eShopStudying.Models.ViewModels;
 
 namespace eShopStudying.Controllers;
 
@@ -22,6 +23,15 @@ public class HomeController : Controller
     {
         IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
         return View(productList);
+    }
+    public IActionResult Details(int id)
+    {
+        ShoppingCart shoppingCart = new()
+        {
+            Count = 1,
+            Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,CoverType")
+        };
+        return View(shoppingCart);
     }
 
     public IActionResult Privacy()

@@ -1,0 +1,68 @@
+@model ShoppingCart
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    <input asp-for="Product.Id" hidden />
+    <input asp-for="Product.ImageUrl" hidden />
+
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+        <div class="row pb-2">
+            <h2 class="text-primary">@Model.Product.Title</h2>
+            <hr/>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <div class="col-2 text-secondary">
+                    <h3>@Model.Product.Author</h3>
+                </div>
+            </div>
+            <div class="row col-6 text-end">
+                <div class="col-2"></div>
+                <div class="col-2"></div>
+                <div class="m-1 col-2">
+                    @Model.Product.Category.Name
+                </div>
+                <div class="m-1 col-2">
+                    @Model.Product.CoverType.Name
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="text-secondary"><h5>Description</h5></label>
+            <div class="m-2"><p>@Model.Product.Description</p></div>
+        </div>
+        <div class="mb-3">
+            ISBN: @Model.Product.ISBN
+        </div>
+        <div class="mb-3">
+            <div class="row text-primary">
+                <div class="col-2">Quantity</div>
+                <div class="col-2">1 - 50</div>
+                <div class="col-2">51 - 100</div>
+                <div class="col-2">100+</div>
+            </div>
+            <div class="row text-dark">
+                <div class="col-2">Price</div>
+                <div class="col-2">$@Model.Product.Price</div>
+                <div class="col-2">$@Model.Product.Price50</div>
+                <div class="col-2">$@Model.Product.Price100</div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Count"></label>
+            <input asp-for="Count" class="form-control"/>
+            <span asp-validation-for="Count" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-outline-success">Add to shopping cart</button>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to list</a>
+        </div>
+    </div>
+        </div>
+        <div class="col-2 pt-4">
+            <p></p>
+            <img src="@Model.Product.ImageUrl" width="100%" style="border-radius: 5px;" />
+        </div>
+    </div>
+</form>

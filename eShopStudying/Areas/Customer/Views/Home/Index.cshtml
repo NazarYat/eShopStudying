@@ -6,21 +6,17 @@
         <div class="col-lg-3 col-md-6">
             <div class="row p-2">
                 <div class="col-12 p-1" style="border-radius: 10px;">
-                    <div class="card">
+                    <a asp-action="Details" asp-route-id="@product.Id" class="text-decoration-none card">
                         <img src="@product.ImageUrl" class="card-img-top rounded" />
-                        <div class="pl-1">
+                        <div class="p-3 pt-1 pb-1 row">
                             <p class="card-title h5 text-primary">@product.Title</p>
-                            <p class="card-title h5 text-info">@product.Author</p>
+                            <div class="col-6">
+                                <b>$@product.Price.ToString("0.00")</b>
+                            </div>
+                            <div class="col-6 text-end">
+                                <p class="card-title h6 text-info">@product.Category.Name</p>
+                            </div>
                         </div>
-                        <div class="pl-1">
-                            <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
-                        </div>
-                        <div class="pl-1">
-                            <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
-                        </div>
-                    </div>
-                    <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary form-control">
-                        Details
                     </a>
                 </div>
             </div>
