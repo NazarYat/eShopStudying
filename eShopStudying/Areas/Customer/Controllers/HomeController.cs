@@ -4,6 +4,8 @@ using eShopStudying.Models;
 using Microsoft.Extensions.Logging;
 using eShopStudying.DataAccess.Repository.IRepository;
 using eShopStudying.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace eShopStudying.Controllers;
 
@@ -24,14 +26,29 @@ public class HomeController : Controller
         IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
         return View(productList);
     }
-    public IActionResult Details(int id)
+    public IActionResult Details(int productId)
     {
         ShoppingCart shoppingCart = new()
         {
             Count = 1,
-            Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,CoverType")
+            ProductId = productId,
+            Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == productId, includeProperties: "Category,CoverType")
         };
         return View(shoppingCart);
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    public IActionResult Details(ShoppingCart shoppingCart)
+    {
+        var claimsIdentity = (ClaimsIdentity) User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        shoppingCart.ApplicationUserId = claim.Value;
+
+        _unitOfWork.ShoppingCart.Add(shoppingCart);
+        _unitOfWork.Save();
+
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Privacy()

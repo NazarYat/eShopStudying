@@ -1,6 +1,7 @@
 @model ShoppingCart
 
-<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+<form method="post">
+    <input hidden asp-for="ProductId" />
     <input asp-for="Product.Id" hidden />
     <input asp-for="Product.ImageUrl" hidden />
 
