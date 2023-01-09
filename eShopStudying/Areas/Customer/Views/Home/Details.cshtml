@@ -1,10 +1,8 @@
 @model ShoppingCart
 
 <form method="post">
-    <input hidden asp-for="ProductId" />
-    <input asp-for="Product.Id" hidden />
-    <input asp-for="Product.ImageUrl" hidden />
-
+    <input hidden asp-for="@Model.ProductId" />
+    @* <input asp-for="Product.Id" hidden /> *@
     <div class="row">
         <div class="col-10">
             <div class="border p-3 mt-4 row">
