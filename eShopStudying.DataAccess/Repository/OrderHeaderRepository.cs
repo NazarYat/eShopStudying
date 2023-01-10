@@ -28,5 +28,15 @@ namespace eShopStudying.DataAccess.Repository
                 }
             }
         }
+        public void UpdateStripePaymentId(int id, string sessionId, string paymentIntentId)
+        {
+            var orderHeaderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.Id == id);
+            
+            if (orderHeaderFromDb != null)
+            {
+                orderHeaderFromDb.SessionId = sessionId;
+                orderHeaderFromDb.PaymentIntendId = paymentIntentId;
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(
 ));
 
 builder.Services.Configure<StripeSettings>(
-    builder.Configuration.GetSection("Stripe")
+    builder.Configuration.GetSection("StripeSettings")
 );
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
@@ -51,7 +51,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("StripeSettings:SecretKey").Get<string>();
 
 app.UseAuthentication();;
 
