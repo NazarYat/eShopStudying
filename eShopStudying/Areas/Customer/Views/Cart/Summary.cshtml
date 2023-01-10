@@ -1,0 +1,87 @@
+@model ShoppingCartVM
+
+<div class="m-5 mt-4">
+    <div class="row p-4 py-2 pt-3 text-primary  bg-light">
+        <div class="col-6">
+            <h3>Order summary</h3>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-sm btn-primary" asp-area="Customer" asp-controller="Cart" asp-action="Index">&nbsp;Back ot cart&nbsp;</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col p-4">
+            <div>
+                <h4>PICKUP DETAILS:</h4>
+            </div>
+            <hr color="black" class="p-6"/>
+            <form action="post">
+                <div>
+                    <label>Name</label>
+                    <input type="text" class="form-control"/>
+                    <span class="text-danger">danger</span>
+                </div>
+                <div>
+                    <label>Phone</label>
+                    <input type="text" class="form-control"/>
+                    <span class="text-danger">danger</span>
+                </div>
+                <div>
+                    <label>Street address</label>
+                    <input type="text" class="form-control"/>
+                    <span class="text-danger">danger</span>
+                </div>
+                <div>
+                    <label>City</label>
+                    <input type="text" class="form-control"/>
+                    <span class="text-danger">danger</span>
+                </div>
+                <div>
+                    <label>State</label>
+                    <input type="text" class="form-control"/>
+                    <span class="text-danger">danger</span>
+                </div>
+                <div>
+                    <label>Postal code</label>
+                    <input type="text" class="form-control"/>
+                    <span class="text-danger">danger</span>
+                </div>
+            </form>
+        </div>
+        <div class="col-5 p-4">
+            <h4>ORDER SUMMARY:</h4>
+            <hr color="black" class="p-6"/>
+            @* @foreach (var cart in @Model.ListCart)
+            { *@
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            Title
+                        </div>
+                        <div>
+                            Quantity: Count
+                        </div>
+                    </div>
+                    <div class="col text-dark text-end pt-2">
+                        $$$
+                    </div>
+                </div>
+                <hr color="black"/>
+            @* } *@
+            <div class="row">
+                <div class="col-6">
+                    <b><h5>Total:</h5></b>
+                </div>
+                <div class="col-6 text-dark text-end">
+                    <b><h5>$$$</h5></b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-4 py-3 text-primary bg-light text-end">
+        <a asp-action="PlaceOrder" class="btn btn-outline-success">&nbsp;Place order&nbsp;</a>
+    </div>
+
+</div>

@@ -64,6 +64,10 @@ namespace eShopStudying.Controllers
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Summary()
+        {
+            return View();
+        }
 
         public double GetPriceBasedOnQuantity(double quantity, double price, double price50, double price100)
         {
