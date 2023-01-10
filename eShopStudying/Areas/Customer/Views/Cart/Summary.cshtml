@@ -1,5 +1,6 @@
 @model ShoppingCartVM
 
+<form method="post">
 <div class="m-5 mt-4">
     <div class="row p-4 py-2 pt-3 text-primary  bg-light">
         <div class="col-6">
@@ -16,7 +17,7 @@
                 <h4>PICKUP DETAILS:</h4>
             </div>
             <hr color="black" class="p-6"/>
-            <form action="post">
+            
                 <div>
                     <label asp-for="OrderHeader.Name"></label>
                     <input asp-for="OrderHeader.Name" class="form-control"/>
@@ -47,7 +48,7 @@
                     <input asp-for="OrderHeader.PostalCode" class="form-control"/>
                     <span asp-for="OrderHeader.PostalCode" class="text-danger"></span>
                 </div>
-            </form>
+            
         </div>
         <div class="col-5 p-4">
             <h4>ORDER SUMMARY:</h4>
@@ -81,7 +82,8 @@
     </div>
 
     <div class="p-4 py-3 text-primary bg-light text-end">
-        <a asp-action="PlaceOrder" class="btn btn-outline-success">&nbsp;Place order&nbsp;</a>
+        <button type="submit" class="btn btn-outline-success">&nbsp;Place order&nbsp;</button>
     </div>
 
 </div>
+</form>
