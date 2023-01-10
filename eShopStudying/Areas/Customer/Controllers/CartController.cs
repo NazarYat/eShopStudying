@@ -33,7 +33,7 @@ namespace eShopStudying.Controllers
 
             return View(ShoppingCartVM);
         }
-
+        [Authorize]
         public IActionResult Plus(int cartId)
         {
             var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId);
@@ -41,6 +41,7 @@ namespace eShopStudying.Controllers
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize]
         public IActionResult Minus(int cartId)
         {
             var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId);
@@ -55,6 +56,7 @@ namespace eShopStudying.Controllers
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize]
         public IActionResult Remove(int cartId)
         {
             var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId);
