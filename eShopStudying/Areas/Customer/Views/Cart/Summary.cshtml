@@ -1,4 +1,6 @@
 @model ShoppingCartVM
+@using Microsoft.Extensions.Options
+@inject IOptions<eShopStudying.Utility.StripeSettings> Stripe
 
 <form method="post">
 <div class="m-5 mt-4">

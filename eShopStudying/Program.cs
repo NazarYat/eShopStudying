@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using eShopStudying.Utility;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,10 @@ builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("Default"),
     x => x.MigrationsAssembly("eShopStudying.DataAccess")
 ));
+
+builder.Services.Configure<StripeSettings>(
+    builder.Configuration.GetSection("Stripe")
+);
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<SQLDBContext>();
@@ -45,6 +50,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
 app.UseAuthentication();;
 
 app.UseAuthorization();
