@@ -193,6 +193,7 @@ namespace eShopStudying.Controllers
             }
             else
             {
+                _unitOfWork.Save();
                 return RedirectToAction(nameof(OrderConfirmation), "Cart", new { id = ShoppingCartVM.OrderHeader.Id });
             }
         }
