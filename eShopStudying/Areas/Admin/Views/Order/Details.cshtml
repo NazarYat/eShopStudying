@@ -198,13 +198,29 @@
                         <b><h5>@Model.OrderHeader.OrderTotal.ToString("c")</h5></b>
                     </div>
                 </div>
-                <a class="btn btn-primary w-100 mb-2 mt-2">START PROCESSING</a>
-                <a class="btn btn-primary w-100 mb-2">SHIP ORDER</a>
-                <a class="btn btn-outline-success w-100 mb-2">PAY NOW</a>
-                <a class="btn btn-outline-danger w-100 mb-2">CANCEL ORDER</a>
+                @if (@User.IsInRole(SD.Role_Admin) || @User.IsInRole(SD.Role_Employee))
+                {
+                    @if (@Model.OrderHeader.OrderStatus == SD.StatusApproved)
+                    {
+                        <a class="btn btn-primary w-100 mb-2 mt-2">START PROCESSING</a>
+                    }
+                    @if (@Model.OrderHeader.OrderStatus == SD.StatusProcessing)
+                    {
+                        <a class="btn btn-primary w-100 mb-2">SHIP ORDER</a>
+                    }
+                    @if (Model.OrderHeader.PaymentStatus == SD.PaymentStatussDelayedPayment &&
+                        Model.OrderHeader.OrderStatus == SD.StatusShipped)
+                    {
+                        <a class="btn btn-outline-success w-100 mb-2">PAY NOW</a>
+                    }
+                    @if (Model.OrderHeader.PaymentStatus != SD.StatusRefunded &&
+                        Model.OrderHeader.OrderStatus != SD.StatusCanceled)
+                    {
+                        <a class="btn btn-outline-danger w-100 mb-2">CANCEL ORDER</a>
+                    }
+                }
             </div>
         </div>
-
         <div class="p-4 py-3 text-primary bg-light text-end">
             <button type="submit" class="btn btn-outline-success">&nbsp;Update&nbsp;</button>
         </div>
