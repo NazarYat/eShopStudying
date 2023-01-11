@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using eShopStudying.DataAccess.Repository.IRepository;
 using eShopStudying.Models;
+using eShopStudying.Models.ViewModels;
 using eShopStudying.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,8 @@ namespace eShopStudying.Controllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        [BindProperty]
+        public OrderVM orderVM { get; set; }
 
         public OrderController(IUnitOfWork unitOfWork)
         {
@@ -21,6 +24,15 @@ namespace eShopStudying.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult Details(int orderId)
+        {
+            orderVM = new()
+            {
+                OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == orderId, includeProperties: "ApplicationUser"),
+                OrderDetails = _unitOfWork.OrderDetail.GetAll(u => u.OrderId == orderId, includeProperties: "Product")
+            };
+            return View(orderVM);
         }
 
         #region API CALLS

@@ -34,6 +34,7 @@ namespace eShopStudying.DataAccess.Repository
             
             if (orderHeaderFromDb != null)
             {
+                orderHeaderFromDb.PaymentDate = DateTime.Now;
                 orderHeaderFromDb.SessionId = sessionId;
                 orderHeaderFromDb.PaymentIntendId = paymentIntentId;
             }
