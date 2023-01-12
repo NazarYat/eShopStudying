@@ -130,9 +130,9 @@
                     <div class="col-3 pt-3">Tracking</div>
                     <div class="col-9">
                         @if (@User.IsInRole(SD.Role_Admin) || @User.IsInRole(SD.Role_Employee)) {
-                            <input asp-for="OrderHeader.TrackingNumber" class="form-control"/>
+                            <input id="trackingNumber" asp-for="OrderHeader.TrackingNumber" class="form-control"/>
                         } else {
-                            <input asp-for="OrderHeader.TrackingNumber" readonly class="form-control"/>
+                            <input id="trackingNumber" asp-for="OrderHeader.TrackingNumber" readonly class="form-control"/>
                         }
                     </div>
                 </div>
@@ -140,9 +140,9 @@
                     <div class="col-3 pt-3">Carrier</div>
                     <div class="col-9">
                         @if (@User.IsInRole(SD.Role_Admin) || @User.IsInRole(SD.Role_Employee)) {
-                            <input asp-for="OrderHeader.Carrier" class="form-control"/>
+                            <input id="carrier" asp-for="OrderHeader.Carrier" class="form-control"/>
                         } else {
-                            <input asp-for="OrderHeader.Carrier" readonly class="form-control"/>
+                            <input id="carrier" asp-for="OrderHeader.Carrier" readonly class="form-control"/>
                         }
                     </div>
                 </div>
@@ -203,11 +203,11 @@
                 {
                     @if (@Model.OrderHeader.OrderStatus == SD.StatusApproved)
                     {
-                        <a class="btn btn-primary w-100 mb-2 mt-2">START PROCESSING</a>
+                        <input type="submit" asp-action="StartProcessing" class="btn btn-primary form-control mb-2" value="START PROCESSING" />
                     }
                     @if (@Model.OrderHeader.OrderStatus == SD.StatusProcessing)
                     {
-                        <a class="btn btn-primary w-100 mb-2">SHIP ORDER</a>
+                        <input type="submit" onclick="return ValidateInput()" asp-action="ShipOrder" class="btn btn-primary form-control mb-2" value="SHIP ORDER" />
                     }
                     @if (Model.OrderHeader.PaymentStatus == SD.PaymentStatussDelayedPayment &&
                         Model.OrderHeader.OrderStatus == SD.StatusShipped)
@@ -228,3 +228,35 @@
 
     </div>
 </form>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        function ValidateInput()
+        {
+            if (document.getElementById("trackingNumber").value == "")
+            {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter tracking number!',
+                });
+                return false;
+            }
+            if (document.getElementById("carrier").value == "")
+            {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter carrier!',
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+}
