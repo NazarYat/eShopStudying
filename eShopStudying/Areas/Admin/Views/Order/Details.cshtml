@@ -217,7 +217,7 @@
                     @if (Model.OrderHeader.PaymentStatus != SD.StatusRefunded &&
                         Model.OrderHeader.OrderStatus != SD.StatusCanceled)
                     {
-                        <a class="btn btn-outline-danger w-100 mb-2">CANCEL ORDER</a>
+                        <input type="submit" asp-action="CancelOrder" class="btn btn-outline-danger form-control mb-2" value="CANCEL ORDER" />
                     }
                 }
             </div>
