@@ -209,13 +209,20 @@
                     {
                         <input type="submit" onclick="return ValidateInput()" asp-action="ShipOrder" class="btn btn-primary form-control mb-2" value="SHIP ORDER" />
                     }
+                }
+                @if (!@User.IsInRole(SD.Role_User_Indi))
+                {
                     @if (Model.OrderHeader.PaymentStatus == SD.PaymentStatussDelayedPayment &&
                         Model.OrderHeader.OrderStatus == SD.StatusShipped)
                     {
-                        <a class="btn btn-outline-success w-100 mb-2">PAY NOW</a>
+                        <input type="submit" asp-action="Details" class="btn btn-outline-success form-control mb-2" value="PAY NOW" />
                     }
+                }
+                @if (@User.IsInRole(SD.Role_Admin) || @User.IsInRole(SD.Role_Employee))
+                {
                     @if (Model.OrderHeader.PaymentStatus != SD.StatusRefunded &&
-                        Model.OrderHeader.OrderStatus != SD.StatusCanceled)
+                        Model.OrderHeader.OrderStatus != SD.StatusCanceled &&
+                        Model.OrderHeader.OrderStatus != SD.StatusShipped)
                     {
                         <input type="submit" asp-action="CancelOrder" class="btn btn-outline-danger form-control mb-2" value="CANCEL ORDER" />
                     }
