@@ -4,10 +4,13 @@ using eShopStudying.Models;
 using eShopStudying.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using eShopStudying.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using eShopStudying.Utility;
 
 namespace eShopStudying.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = SD.Role_Admin)]
 public class CompanyController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;

@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using eShopStudying.DataAccess;
 using eShopStudying.Models;
 using eShopStudying.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
+using eShopStudying.Utility;
 
 namespace eShopStudying.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = SD.Role_Admin)]
 public class CoverTypeController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
