@@ -219,7 +219,7 @@ namespace eShopStudying.Controllers
                 ).ToList();
 
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
-            _unitOfWork.Save(); 
+            _unitOfWork.Save();
 
             return View(id);
         }

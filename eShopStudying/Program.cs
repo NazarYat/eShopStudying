@@ -35,6 +35,8 @@ builder.Services.ConfigureApplicationCookie(option => {
     option.LogoutPath = $"/Identity/Account/Logout";
     option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
+builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
 
@@ -56,7 +58,7 @@ StripeConfiguration.ApiKey = builder.Configuration.GetSection("StripeSettings:Se
 app.UseAuthentication();;
 
 app.UseAuthorization();
-
+app.UseSession();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",

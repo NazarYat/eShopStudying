@@ -1,0 +1,13 @@
+@model int
+
+@if (@Model > 0)
+{
+    <li class="nav-item">
+        <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+            &nbsp;
+            <i class="bi bi-bag-fill"></i>
+            @Model.ToString()
+            &nbsp;
+        </a>
+    </li>
+}

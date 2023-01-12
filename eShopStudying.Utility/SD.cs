@@ -18,5 +18,7 @@ namespace eShopStudying.Utility
         public const string PaymentStatusApproved = "Approved";
         public const string PaymentStatussDelayedPayment = "ApprovedForDelayedPayment";
         public const string PaymentStatusRejected = "Rejected";
+
+        public const string SessionCart = "SessionShoppingCart";
     }
 }
