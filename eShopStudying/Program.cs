@@ -19,7 +19,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SQLDBContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("Default"),
     x => x.MigrationsAssembly("eShopStudying.DataAccess")
-));
+), ServiceLifetime.Scoped);
 
 builder.Services.Configure<StripeSettings>(
     builder.Configuration.GetSection("StripeSettings")

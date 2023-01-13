@@ -43,13 +43,13 @@ namespace eShopStudying.DataAccess.DbInitializer
 
             if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
             {
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee));
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Comp));
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Indi));
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Comp)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Indi)).GetAwaiter().GetResult();
 
                 _userManager.CreateAsync(new ApplicationUser() {
-                    UserName = "Admin",
+                    UserName = "admin@gmail.com",
                     Email = "admin@gmail.com",
                     Name = "My Name",
                     PhoneNumber = "123456789",
