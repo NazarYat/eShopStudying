@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eshopstudying.models\eShopStudying.Models.csproj" />
+    <ProjectReference Include="..\eshopstudying.utility\eShopStudying.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
