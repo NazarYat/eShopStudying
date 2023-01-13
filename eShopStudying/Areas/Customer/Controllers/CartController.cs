@@ -218,6 +218,8 @@ namespace eShopStudying.Controllers
                 u => u.ApplicationUserId == orderHeader.ApplicationUserId
                 ).ToList();
 
+            HttpContext.Session.Clear();
+
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
             _unitOfWork.Save();
 
